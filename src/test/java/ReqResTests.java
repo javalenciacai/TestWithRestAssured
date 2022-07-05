@@ -1,8 +1,10 @@
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.RequestBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +18,14 @@ public class ReqResTests {
         RestAssured.baseURI = "https://reqres.in";
         RestAssured.basePath = "/api";
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+
+        //configuraciones comunes
+        //en este ejemplo esta el ContentType se peude agregar varios
+
+        RestAssured.requestSpecification = new RequestSpecBuilder()
+                .setContentType(ContentType.JSON)
+
+                .build();
     }
     //primer test basico
     @Test
@@ -56,7 +66,6 @@ public class ReqResTests {
     @Test
     public void singleUsers(){
         given()
-                 .contentType(ContentType.JSON)
                 .get("/users/2")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
