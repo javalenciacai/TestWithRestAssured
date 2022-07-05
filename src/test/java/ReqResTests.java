@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat; //para hacer assertions
 
 public class ReqResTests {
 
@@ -80,4 +81,24 @@ public class ReqResTests {
                 .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT);
     }
+
+
+    //Test avanzado de patch
+    // sirve para actualizar una o mas propiedades
+    @Test
+    public void patchUserTest(){
+       String nameUpdate = given()
+                .when()
+                .body("{\n" +
+                        "    \"name\": \"morpheus\",\n" +
+                        "    \"job\": \"zion resident\"\n" +
+                        "}")
+                .patch("/users/2")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .jsonPath().getString("name");
+    // creo una assertion con la libreria de hamcrest
+    assertThat(nameUpdate,equalTo("morpheus"));
+    } // otro metodo extrar para crear assertions
 }
