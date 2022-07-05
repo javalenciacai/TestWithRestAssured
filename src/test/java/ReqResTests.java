@@ -71,4 +71,13 @@ public class ReqResTests {
                 .statusCode(HttpStatus.SC_OK)
                 .body("data.id",equalTo(2));
     }
+
+    //Test avanzado de borrado
+    @Test
+    public void deleteUserTest(){
+        given()
+                .delete("/users/2")
+                .then()
+                .statusCode(HttpStatus.SC_NO_CONTENT);
+    }
 }
