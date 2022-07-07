@@ -101,4 +101,26 @@ public class ReqResTests {
     // creo una assertion con la libreria de hamcrest
     assertThat(nameUpdate,equalTo("morpheus"));
     } // otro metodo extrar para crear assertions
+
+
+
+    // metodo put
+    @Test
+    public void putUserTest(){
+
+        String nameUpdate = given()
+                .when()
+                .body("{\n" +
+                        "    \"name\": \"morpheus\",\n" +
+                        "    \"job\": \"zion resident\"\n" +
+                        "}")
+                .put("/users/2")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .jsonPath().getString("job");
+        // creo una assertion con la libreria de hamcrest
+        assertThat(nameUpdate,equalTo("zion resident"));
+    } // otro metodo extrar para crear assertions
+
 }
