@@ -44,4 +44,3 @@ jobs:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }} 
     - name: test
-      gradle tests
